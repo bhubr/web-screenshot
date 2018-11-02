@@ -14,4 +14,4 @@ app.get('/', (req, res) => {
     .catch(err => res.status(500).json({ error: err.message }));
 })
 
-app.listen(5000);
+app.listen(process.env.PORT || 5040);
