@@ -1,3 +1,4 @@
+const fs = require('fs');
 const express = require('express');
 const morgan = require('morgan');
 const getPic = require('./getPic');
@@ -19,10 +20,14 @@ app.get('/', keyCheckMw, (req, res) => {
   if(!url) {
     return res.status(400).json({ error: 'missing required GET param `url`' });
   }
-  const destPath = dest || __dirname;
+  // const destPath = dest || __dirname;
 
-  getPic(url, destPath)
-    .then(path => res.json({ path, mime: 'image/png' }))
+  getPic(url)
+    .then(path => {
+      console.log('##path', path);
+      res.writeHead(200, { 'content-type': 'image/png' });
+      fs.createReadStream(path).pipe(res);
+    })
     .catch(err => {
       console.error(err);
       res.status(500).json({ error: err.message })
