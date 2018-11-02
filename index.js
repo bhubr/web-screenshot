@@ -23,7 +23,10 @@ app.get('/', keyCheckMw, (req, res) => {
 
   getPic(url, destPath)
     .then(path => res.json({ path, mime: 'image/png' }))
-    .catch(err => res.status(500).json({ error: err.message }));
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ error: err.message })
+    });
 })
 
 app.listen(process.env.PORT || 5040);

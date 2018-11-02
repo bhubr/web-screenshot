@@ -12,11 +12,7 @@ async function checkWritable(folder) {
 
 async function mkdirIfNotExists (folder){
   await checkWritable(folder)
-    .catch(err => mkdirAsync(folder))
-    .catch(err => {
-      console.error(err);
-      throw err;
-    });
+    .catch(err => mkdirAsync(folder));
 }
 
 async function getPic(url, destFolder) {
