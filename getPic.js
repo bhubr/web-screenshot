@@ -19,7 +19,7 @@ async function getPic(url, destFolder) {
   await mkdirIfNotExists(destFolder);
 
   // OK, launch browser
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
   const page = await browser.newPage();
   const slug = slugify(url.replace(/https?\:\/\//, ''));
   const path = `${destFolder}/${slug}-${Date.now()}.png`;
