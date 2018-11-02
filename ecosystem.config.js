@@ -24,7 +24,7 @@ module.exports = {
       user : 'bhu',
       host : 'jsx.fr',
       ref  : 'origin/master',
-      repo : 'git@github.com:repo.git',
+      repo : 'git@github.com:bhubr/web-screenshot.git',
       path : '/home/bhu/node/web-screenshot',
       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
     }
