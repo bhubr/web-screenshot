@@ -1,4 +1,5 @@
 const express = require('express');
+const morgan = require('morgan');
 const getPic = require('./getPic');
 const app = express();
 const { accessKey } = require('./settings');
@@ -10,6 +11,8 @@ const keyCheckMw = (req, res, next) => {
   }
   next();
 };
+
+app.use(morgan('dev'));
 
 app.get('/', keyCheckMw, (req, res) => {
   const { url, dest } = req.query;
