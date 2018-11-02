@@ -1,8 +1,17 @@
 const express = require('express');
 const getPic = require('./getPic');
 const app = express();
+const { accessKey } = require('./settings');
 
-app.get('/', (req, res) => {
+const keyCheckMw = (req, res, next) => {
+  const { key } = req.query;
+  if(!key || key !== accessKey) {
+    return res.status(401).json({ error: 'Forbidden' });
+  }
+  next();
+};
+
+app.get('/', keyCheckMw, (req, res) => {
   const { url, dest } = req.query;
   if(!url) {
     return res.status(400).json({ error: 'missing required GET param `url`' });
